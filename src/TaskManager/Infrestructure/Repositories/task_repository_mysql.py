@@ -14,7 +14,7 @@ class TaskRepositoryMySQL(TaskRepository):
         task_model = TaskModel(uuid=task.uuid, name=task.name, completed=task.completed, uploaded=task.uploaded)
         self.db.add(task_model)
         self.db.commit()
-        return  task_model
+        return task_model
 
     def get_all(self):
         task_models = self.db.query(TaskModel).all()

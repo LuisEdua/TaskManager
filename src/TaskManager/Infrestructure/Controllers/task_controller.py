@@ -15,13 +15,13 @@ def get_tasks():
 def create_task():
     data = request.get_json()
     use_case = CreateTaskUseCase(task_repository)
-    new_task = use_case.execute(name=data['name'], completed=data.get('completed', False), uploaded=data.get('uploaded', False))
+    new_task = use_case.execute(name=data['name'])
     return jsonify({'id': new_task.uuid, 'name': new_task.name, 'completed': new_task.completed, "uploaded": new_task.uploaded}), 201
 
 def update_task(id):
     data = request.get_json()
     use_case = UpdateTaskUseCase(task_repository)
-    updated_task = use_case.execute(task_id=id, name=data['name'], completed=data.get('completed', False))
+    updated_task = use_case.execute(task_id=id, name=data.get('name'), completed=data.get('completed'))
     if updated_task:
         print(updated_task.uploaded)
         return jsonify({'id': updated_task.uuid, 'name': updated_task.name, 'completed': updated_task.completed, 'uploaded': updated_task.uploaded})
